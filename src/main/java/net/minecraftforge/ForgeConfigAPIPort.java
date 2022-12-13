@@ -33,7 +33,7 @@ public class ForgeConfigAPIPort implements ModInitializer {
     public void onInitialize() {
         ConfigSync.INSTANCE.init();
         // loaded immediately on fabric as no mod loading stages exist
-//        ConfigTracker.INSTANCE.loadConfigs(ModConfig.Type.COMMON, FabricEnvironment.getConfigDir());
+//      ConfigTracker.INSTANCE.loadConfigs(ModConfig.Type.COMMON, FabricEnvironment.getConfigDir());
         FMLConfig.loadDefaultConfigPath();
         this.registerArgumentTypes();
         this.registerCallbacks();
