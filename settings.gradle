@@ -9,4 +9,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "Forge APIs for Fabric"
+rootProject.name = "forge-apis-fabric"
