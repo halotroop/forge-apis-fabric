@@ -1,93 +1,93 @@
 plugins {
-	id 'fabric-loom' version '0.11-SNAPSHOT'
-	id 'io.github.juuxel.loom-quiltflower' version '1.7.2'
-	id 'maven-publish'
-	id 'signing'
-	id 'java-library'
-	id 'java'
+    id 'fabric-loom' version '0.11-SNAPSHOT'
+    id 'io.github.juuxel.loom-quiltflower' version '1.7.2'
+    id 'maven-publish'
+    id 'signing'
+    id 'java-library'
+    id 'java'
 }
 
 group = "com.halotroop"
 
 repositories {
-	maven { url = "https://maven.terraformersmc.com/releases/" }
-	maven { url = "https://cursemaven.com" }
+    maven { url = "https://maven.terraformersmc.com/releases/" }
+    maven { url = "https://cursemaven.com" }
 }
 
 dependencies {
-	minecraft "com.mojang:minecraft:${project.minecraftVersion}"
-	mappings loom.layered() {
-		officialMojangMappings()
-		parchment("org.parchmentmc.data:parchment-1.18.2:2022.11.06@zip")
-	}
+    minecraft "com.mojang:minecraft:${project.minecraftVersion}"
+    mappings loom.layered() {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-1.18.2:2022.11.06@zip")
+    }
 
-	// Fabric
-	modImplementation "net.fabricmc:fabric-loader:${fabricVersion}"
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${fabricApiVersion}"
+    // Fabric
+    modImplementation "net.fabricmc:fabric-loader:${fabricVersion}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabricApiVersion}"
 
-	// Mod Menu
-	modImplementation "com.terraformersmc:modmenu:3.1.0"
+    // Mod Menu
+    modImplementation "com.terraformersmc:modmenu:3.1.0"
 
-	// Config Dependencies
-	implementation(include('com.electronwill.night-config:core:3.6.5'))
-	implementation(include('com.electronwill.night-config:toml:3.6.5'))
+    // Config Dependencies
+    include(implementation('com.electronwill.night-config:core:3.6.5'))
+    include(implementation('com.electronwill.night-config:toml:3.6.5'))
 }
 
 loom {
-	mixin {
-		defaultRefmapName = "forgeapis-fabric.refmap.json"
-	}
+    mixin {
+        defaultRefmapName = "forgeapis-fabric.refmap.json"
+    }
 }
 
 processResources {
-	inputs.property "version", project.version
+    inputs.property "version", project.version
 
-	filesMatching("fabric.mod.json") {
-		expand "version": project.version
-	}
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
 tasks.withType(JavaCompile).configureEach {
-	// ensure that the encoding is set to UTF-8, no matter what the system default is
-	// this fixes some edge cases with special characters not displaying correctly
-	// see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
-	// If Javadoc is generated, this must be specified in that task too.
-	it.options.encoding = "UTF-8"
-	it.options.release.set 17
+    // ensure that the encoding is set to UTF-8, no matter what the system default is
+    // this fixes some edge cases with special characters not displaying correctly
+    // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
+    // If Javadoc is generated, this must be specified in that task too.
+    it.options.encoding = "UTF-8"
+    it.options.release.set 17
 }
 
 javadoc.options {
-	encoding = "UTF-8"
-	addStringOption('Xdoclint:none', '-quiet')
+    encoding = "UTF-8"
+    addStringOption('Xdoclint:none', '-quiet')
 }
 
 java {
-	withSourcesJar()
-	withJavadocJar()
+    withSourcesJar()
+    withJavadocJar()
 }
 
 tasks.withType(Jar).configureEach {
-	from("LICENSE.md") {
-		rename { "${it}_${project.archivesBaseName}"}
-	}
-	from rootProject.file("LICENSE-NIGHT-CONFIG")
-	from rootProject.file("LICENSING.md")
+    from("LICENSE.md") {
+        rename { "${it}_${project.archivesBaseName}" }
+    }
+    from rootProject.file("LICENSE-NIGHT-CONFIG")
+    from rootProject.file("LICENSING.md")
 }
 
 tasks.withType(GenerateModuleMetadata) {
-	// Disables Gradle's custom module metadata from being published to maven. The
-	// metadata includes mapped dependencies which are not reasonably consumable by
-	// other mod developers.
-	enabled = false
+    // Disables Gradle's custom module metadata from being published to maven. The
+    // metadata includes mapped dependencies which are not reasonably consumable by
+    // other mod developers.
+    enabled = false
 }
 
 publishing {
-	publications {
-		mavenJava(MavenPublication) {
-			from components.java
-		}
-	}
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
 }

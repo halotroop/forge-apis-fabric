@@ -11,19 +11,19 @@ import net.minecraftforge.mixin.LevelResourceAccessor;
 import java.nio.file.Path;
 
 public class ServerLifecycleHooks {
-    private static final LevelResource SERVERCONFIG = LevelResourceAccessor.create(ConfigPaths.SERVER_CONFIG_PATH);
+	private static final LevelResource SERVERCONFIG = LevelResourceAccessor.create(ConfigPaths.SERVER_CONFIG_PATH);
 
-    private static Path getServerConfigPath(final MinecraftServer server) {
-        final Path serverConfig = server.getWorldPath(SERVERCONFIG);
-        FileUtils.getOrCreateDirectory(serverConfig, "server config directory");
-        return serverConfig;
-    }
+	private static Path getServerConfigPath(final MinecraftServer server) {
+		final Path serverConfig = server.getWorldPath(SERVERCONFIG);
+		FileUtils.getOrCreateDirectory(serverConfig, "server config directory");
+		return serverConfig;
+	}
 
-    public static void handleServerAboutToStart(final MinecraftServer server) {
-        ConfigTracker.INSTANCE.loadConfigs(ModConfig.Type.SERVER, getServerConfigPath(server));
-    }
+	public static void handleServerAboutToStart(final MinecraftServer server) {
+		ConfigTracker.INSTANCE.loadConfigs(ModConfig.Type.SERVER, getServerConfigPath(server));
+	}
 
-    public static void handleServerStopped(final MinecraftServer server) {
-        ConfigTracker.INSTANCE.unloadConfigs(ModConfig.Type.SERVER, getServerConfigPath(server));
-    }
+	public static void handleServerStopped(final MinecraftServer server) {
+		ConfigTracker.INSTANCE.unloadConfigs(ModConfig.Type.SERVER, getServerConfigPath(server));
+	}
 }

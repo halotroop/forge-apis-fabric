@@ -3,19 +3,20 @@ package net.minecraftforge.fml.config;
 import com.electronwill.nightconfig.core.CommentedConfig;
 import com.electronwill.nightconfig.core.UnmodifiableConfig;
 
+@SuppressWarnings("unused")
 public interface IConfigSpec<T extends IConfigSpec<T>> extends UnmodifiableConfig {
-    @SuppressWarnings("unchecked")
-    default T self() {
-        return (T) this;
-    }
+	@SuppressWarnings("unchecked")
+	default T self() {
+		return (T) this;
+	}
 
-    void acceptConfig(CommentedConfig data);
+	void acceptConfig(CommentedConfig data);
 
-    boolean isCorrecting();
+	boolean isCorrecting();
 
-    boolean isCorrect(CommentedConfig commentedFileConfig);
+	boolean isCorrect(CommentedConfig commentedFileConfig);
 
-    int correct(CommentedConfig commentedFileConfig);
+	int correct(CommentedConfig commentedFileConfig);
 
-    void afterReload();
+	void afterReload();
 }

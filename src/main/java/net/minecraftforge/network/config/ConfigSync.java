@@ -23,54 +23,55 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("unused")
 public class ConfigSync {
-    static final Marker NETWORK = MarkerManager.getMarker("FMLNETWORK");
-    public static final Marker FMLHSMARKER = MarkerManager.getMarker("FMLHANDSHAKE").setParents(NETWORK);
-    public static final Logger LOGGER = LogManager.getLogger();
+	static final Marker NETWORK = MarkerManager.getMarker("FMLNETWORK");
+	public static final Marker FMLHSMARKER = MarkerManager.getMarker("FMLHANDSHAKE").setParents(NETWORK);
+	public static final Logger LOGGER = LogManager.getLogger();
 
-    public static final ConfigSync INSTANCE = new ConfigSync(ConfigTracker.INSTANCE);
-    public static final ResourceLocation SYNC_CONFIGS_CHANNEL = new ResourceLocation(ForgeConfigAPIPort.MOD_ID, "sync_configs");
-    public static final ResourceLocation MODDED_CONNECTION_CHANNEL = new ResourceLocation(ForgeConfigAPIPort.MOD_ID, "modded_connection");
-    private final ConfigTracker tracker;
+	public static final ConfigSync INSTANCE = new ConfigSync(ConfigTracker.INSTANCE);
+	public static final ResourceLocation SYNC_CONFIGS_CHANNEL = new ResourceLocation(ForgeConfigAPIPort.MOD_ID, "sync_configs");
+	public static final ResourceLocation MODDED_CONNECTION_CHANNEL = new ResourceLocation(ForgeConfigAPIPort.MOD_ID, "modded_connection");
+	private final ConfigTracker tracker;
 
-    private ConfigSync(final ConfigTracker tracker) {
-        this.tracker = tracker;
-    }
+	private ConfigSync(final ConfigTracker tracker) {
+		this.tracker = tracker;
+	}
 
-    public void init() {
-        ServerLoginConnectionEvents.QUERY_START.register((ServerLoginPacketListenerImpl handler, MinecraftServer server, PacketSender sender, ServerLoginNetworking.LoginSynchronizer synchronizer) -> {
-            final List<Pair<String, FriendlyByteBuf>> pairs = this.syncConfigs();
-            for (Pair<String, FriendlyByteBuf> pair : pairs) {
-                synchronizer.waitFor(server.submit(() -> sender.sendPacket(SYNC_CONFIGS_CHANNEL, pair.getValue())));
-            }
-            synchronizer.waitFor(server.submit(() -> sender.sendPacket(MODDED_CONNECTION_CHANNEL, PacketByteBufs.create())));
-        });
-        ServerLoginNetworking.registerGlobalReceiver(SYNC_CONFIGS_CHANNEL, (MinecraftServer server, ServerLoginPacketListenerImpl handler, boolean understood, FriendlyByteBuf buf, ServerLoginNetworking.LoginSynchronizer synchronizer, PacketSender responseSender) -> {
-            if (!understood) {
-                // The client is likely a vanilla client.
-                return;
-            }
-            String fileName = buf.readUtf(32767);
-            LOGGER.debug(FMLHSMARKER, "Received acknowledgement for config sync for {} from client", fileName);
-        });
-        ServerLoginNetworking.registerGlobalReceiver(MODDED_CONNECTION_CHANNEL, (MinecraftServer server, ServerLoginPacketListenerImpl handler, boolean understood, FriendlyByteBuf buf, ServerLoginNetworking.LoginSynchronizer synchronizer, PacketSender responseSender) -> {
-            LOGGER.debug(FMLHSMARKER, "Received acknowledgement for modded connection marker from client");
-        });
-    }
+	public void init() {
+		ServerLoginConnectionEvents.QUERY_START.register((ServerLoginPacketListenerImpl handler, MinecraftServer server, PacketSender sender, ServerLoginNetworking.LoginSynchronizer synchronizer) -> {
+			final List<Pair<String, FriendlyByteBuf>> pairs = this.syncConfigs();
+			for (Pair<String, FriendlyByteBuf> pair : pairs) {
+				synchronizer.waitFor(server.submit(() -> sender.sendPacket(SYNC_CONFIGS_CHANNEL, pair.getValue())));
+			}
+			synchronizer.waitFor(server.submit(() -> sender.sendPacket(MODDED_CONNECTION_CHANNEL, PacketByteBufs.create())));
+		});
+		ServerLoginNetworking.registerGlobalReceiver(SYNC_CONFIGS_CHANNEL, (MinecraftServer server, ServerLoginPacketListenerImpl handler, boolean understood, FriendlyByteBuf buf, ServerLoginNetworking.LoginSynchronizer synchronizer, PacketSender responseSender) -> {
+			if (!understood) {
+				// The client is likely a vanilla client.
+				return;
+			}
+			String fileName = buf.readUtf(32767);
+			LOGGER.debug(FMLHSMARKER, "Received acknowledgement for config sync for {} from client", fileName);
+		});
+		ServerLoginNetworking.registerGlobalReceiver(MODDED_CONNECTION_CHANNEL,
+				(server, handler, understood, buf, synchronizer, responseSender) ->
+						LOGGER.debug(FMLHSMARKER, "Received acknowledgement for modded connection marker from client"));
+	}
 
-    private List<Pair<String, FriendlyByteBuf>> syncConfigs() {
-        final Map<String, byte[]> configData = this.tracker.configSets().get(ModConfig.Type.SERVER).stream().collect(Collectors.toMap(ModConfig::getFileName, config -> {
-            try {
-                return Files.readAllBytes(config.getFullPath());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }));
-        return configData.entrySet().stream().map(e -> {
-            FriendlyByteBuf buf = PacketByteBufs.create();
-            buf.writeUtf(e.getKey());
-            buf.writeByteArray(e.getValue());
-            return Pair.of("Config " + e.getKey(), buf);
-        }).collect(Collectors.toList());
-    }
+	private List<Pair<String, FriendlyByteBuf>> syncConfigs() {
+		final Map<String, byte[]> configData = this.tracker.configSets().get(ModConfig.Type.SERVER).stream().collect(Collectors.toMap(ModConfig::getFileName, config -> {
+			try {
+				return Files.readAllBytes(config.getFullPath());
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}));
+		return configData.entrySet().stream().map(e -> {
+			FriendlyByteBuf buf = PacketByteBufs.create();
+			buf.writeUtf(e.getKey());
+			buf.writeByteArray(e.getValue());
+			return Pair.of("Config " + e.getKey(), buf);
+		}).collect(Collectors.toList());
+	}
 }

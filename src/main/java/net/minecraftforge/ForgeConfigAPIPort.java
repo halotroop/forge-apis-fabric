@@ -22,36 +22,37 @@ import org.apache.logging.log4j.MarkerManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@SuppressWarnings("unused")
 public class ForgeConfigAPIPort implements ModInitializer {
-    public static final String MOD_ID = "forgeconfigapiport";
-    public static final String MOD_NAME = "Forge Config API Port";
-    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
+	public static final String MOD_ID = "forgeconfigapiport";
+	public static final String MOD_NAME = "Forge Config API Port";
+	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
-    public static final Marker CORE = MarkerManager.getMarker("CORE");
+	public static final Marker CORE = MarkerManager.getMarker("CORE");
 
-    @Override
-    public void onInitialize() {
-        ConfigSync.INSTANCE.init();
-        // loaded immediately on fabric as no mod loading stages exist
+	@Override
+	public void onInitialize() {
+		ConfigSync.INSTANCE.init();
+		// loaded immediately on fabric as no mod loading stages exist
 //      ConfigTracker.INSTANCE.loadConfigs(ModConfig.Type.COMMON, FabricEnvironment.getConfigDir());
-        FMLConfig.loadDefaultConfigPath();
-        this.registerArgumentTypes();
-        this.registerCallbacks();
-    }
+		FMLConfig.loadDefaultConfigPath();
+		this.registerArgumentTypes();
+		this.registerCallbacks();
+	}
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    private void registerArgumentTypes() {
-        // don't add on servers as command is useless there anyways and serializing arguments will crash connecting vanilla clients
-        if (FabricLoader.getInstance().getEnvironmentType() != EnvType.CLIENT) return;
-        ArgumentTypes.register(new ResourceLocation(MOD_ID, "enum").toString(), EnumArgument.class, (ArgumentSerializer) new EnumArgument.Serializer());
-        ArgumentTypes.register(new ResourceLocation(MOD_ID, "modid").toString(), ModIdArgument.class, new EmptyArgumentSerializer<>(ModIdArgument::modIdArgument));
-    }
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	private void registerArgumentTypes() {
+		// don't add on servers as command is useless there anyways and serializing arguments will crash connecting vanilla clients
+		if (FabricLoader.getInstance().getEnvironmentType() != EnvType.CLIENT) return;
+		ArgumentTypes.register(new ResourceLocation(MOD_ID, "enum").toString(), EnumArgument.class, (ArgumentSerializer) new EnumArgument.Serializer());
+		ArgumentTypes.register(new ResourceLocation(MOD_ID, "modid").toString(), ModIdArgument.class, new EmptyArgumentSerializer<>(ModIdArgument::modIdArgument));
+	}
 
-    private void registerCallbacks() {
-        CommandRegistrationCallback.EVENT.register((CommandDispatcher<CommandSourceStack> dispatcher, boolean dedicated) -> {
-            if (!dedicated) ConfigCommand.register(dispatcher);
-        });
-        ServerLifecycleEvents.SERVER_STARTING.register(ServerLifecycleHooks::handleServerAboutToStart);
-        ServerLifecycleEvents.SERVER_STOPPED.register(ServerLifecycleHooks::handleServerStopped);
-    }
+	private void registerCallbacks() {
+		CommandRegistrationCallback.EVENT.register((CommandDispatcher<CommandSourceStack> dispatcher, boolean dedicated) -> {
+			if (!dedicated) ConfigCommand.register(dispatcher);
+		});
+		ServerLifecycleEvents.SERVER_STARTING.register(ServerLifecycleHooks::handleServerAboutToStart);
+		ServerLifecycleEvents.SERVER_STOPPED.register(ServerLifecycleHooks::handleServerStopped);
+	}
 }

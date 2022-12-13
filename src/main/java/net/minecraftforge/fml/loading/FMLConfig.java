@@ -8,11 +8,11 @@ import org.apache.logging.log4j.Logger;
 import static net.minecraftforge.ForgeConfigAPIPort.CORE;
 
 public class FMLConfig {
-    private static final Logger LOGGER = LogManager.getLogger();
-    private static final String DEFAULT_CONFIG_PATH_NAME = ConfigPaths.DEFAULT_CONFIGS_PATH;
+	private static final Logger LOGGER = LogManager.getLogger();
+	private static final String DEFAULT_CONFIG_PATH_NAME = ConfigPaths.DEFAULT_CONFIGS_PATH;
 
-    public static void loadDefaultConfigPath() {
-        LOGGER.trace(CORE, "Default config paths at {}", DEFAULT_CONFIG_PATH_NAME);
-        FileUtils.getOrCreateDirectory(FabricLoader.getInstance().getGameDir().resolve(DEFAULT_CONFIG_PATH_NAME), "default config directory");
-    }
+	public static void loadDefaultConfigPath() {
+		LOGGER.trace(CORE, "Default config paths at {}", DEFAULT_CONFIG_PATH_NAME);
+		FileUtils.getOrCreateDirectory(FabricLoader.getInstance().getGameDir().resolve(DEFAULT_CONFIG_PATH_NAME), "default config directory");
+	}
 }
