@@ -2,11 +2,11 @@
   "schemaVersion": 1,
   "id": "forgeapis-fabric",
   "version": "${version}",
-
   "name": "Forge APIs for Fabric",
   "description": "Several Forge APIs ported to Fabric for ease of other mod ports.",
   "authors": [
     "Fuzss",
+    "AlphaMode",
     "halotroop"
   ],
   "contact": {
@@ -14,10 +14,8 @@
     "sources": "https://github.com/halotroop/forge-apis-fabric",
     "issues": "https://github.com/halotroop/forge-apis-fabric/issues"
   },
-
   "license": "LGPL-2.1",
   "icon": "mod_logo.png",
-
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -25,21 +23,26 @@
     ],
     "client": [
       "net.minecraftforge.client.ForgeConfigAPIPortClient"
+    ],
+    "fabric-datagen": [
+      "me.alphamode.forgetags.data.DataGenerators"
     ]
   },
   "mixins": [
-    "forgeconfigapiport.fabric.mixins.json"
+    "forge-apis-fabric-accessors.mixins.json",
+    "forge-apis-fabric.mixins.json",
+    "forgeconfigapiport.mixins.json"
   ],
-
   "depends": {
     "fabricloader": "",
     "fabric": ">=0.67.0+1.18.2",
-    "com_electronwill_night-config_core": "*",
-    "com_electronwill_night-config_toml": "*",
     "minecraft": "1.18.2",
     "java": ">=17"
   },
-
+  "suggests": {
+    "com_electronwill_night-config_core": "*",
+    "com_electronwill_night-config_toml": "*"
+  },
   "custom": {
     "modmenu": {
       "badges": [

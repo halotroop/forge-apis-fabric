@@ -10,8 +10,16 @@ plugins {
 group = "com.halotroop"
 
 repositories {
+    mavenCentral()
     maven { url = "https://maven.terraformersmc.com/releases/" }
-    maven { url = "https://cursemaven.com" }
+    maven {
+        name 'ParchmentMC'
+        url 'https://maven.parchmentmc.org'
+        description 'Minecraft JavaDocs'
+        content {
+            includeGroup 'org.parchmentmc.data'
+        }
+    }
 }
 
 dependencies {
