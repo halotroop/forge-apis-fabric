@@ -35,13 +35,13 @@ only for mimicking Forge, as this is really only used for registering configs.
 You'll have to provide the mod id of your mod, as there is no context which would be aware of the current mod.
 
 ```java
-public static void registerConfig(String modId, ModConfig.Type type, IConfigSpec<?> spec)
+public static ModConfig registerConfig(String modId, ModConfig.Type type, IConfigSpec<?> spec)
 ```
 
 And as on Forge there is also a version which supports a custom file name.
 
 ```java
-public static void registerConfig(String modId, ModConfig.Type type, IConfigSpec<?> spec, String fileName)
+public static ModConfig registerConfig(String modId, ModConfig.Type type, IConfigSpec<?> spec, String fileName)
 ```
 
 #### Config loading
