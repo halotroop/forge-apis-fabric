@@ -20,17 +20,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  */
 @Mixin(DyeColor.class)
 public class DyeColorMixin implements DyeExtension {
-    @Shadow @Final private String name;
-    @Unique
-    private TagKey<Item> tag;
+	@Shadow
+	@Final
+	private String name;
+	@Unique
+	private TagKey<Item> tag;
 
-    @Inject(method = "<init>", at = @At("TAIL"))
-    public void addTag(String woolId, int id, int color, String mapColor, int fireworkColor, MaterialColor signColor, int j, int k, CallbackInfo ci) {
-        tag = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation("c", name+"_dyes"));
-    }
+	@Inject(method = "<init>", at = @At("TAIL"))
+	public void addTag(String woolId, int id, int color, String mapColor, int fireworkColor, MaterialColor signColor, int j, int k, CallbackInfo ci) {
+		tag = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation("c", name + "_dyes"));
+	}
 
-    @Override
-    public TagKey<Item> getTag() {
-        return tag;
-    }
+	@Override
+	public TagKey<Item> getTag() {
+		return tag;
+	}
 }

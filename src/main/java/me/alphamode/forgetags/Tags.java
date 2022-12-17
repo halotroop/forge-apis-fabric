@@ -16,7 +16,7 @@ import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
 public class Tags {
-	public static void init () {
+	public static void init() {
 		Blocks.init();
 		Items.init();
 		Fluids.init();
@@ -24,7 +24,8 @@ public class Tags {
 	}
 
 	public static class Blocks {
-		private static void init(){}
+		private static void init() {
+		}
 
 		public static final TagKey<Block> BARRELS = tag("barrels");
 		public static final TagKey<Block> BARRELS_WOODEN = tag("barrels/wooden");
@@ -173,7 +174,8 @@ public class Tags {
 	}
 
 	public static class Items {
-		private static void init(){}
+		private static void init() {
+		}
 
 		public static final TagKey<Item> BARRELS = tag("barrels");
 		public static final TagKey<Item> BARRELS_WOODEN = tag("barrels/wooden");
@@ -200,22 +202,22 @@ public class Tags {
 		public static final TagKey<Item> DUSTS_GLOWSTONE = tag("dusts/glowstone");
 
 		public static final TagKey<Item> DYES = tag("dyes");
-		public static final TagKey<Item> DYES_BLACK = ((DyeExtension)(Object)DyeColor.BLACK).getTag();
-		public static final TagKey<Item> DYES_RED = ((DyeExtension)(Object)DyeColor.RED).getTag();
-		public static final TagKey<Item> DYES_GREEN = ((DyeExtension)(Object)DyeColor.GREEN).getTag();
-		public static final TagKey<Item> DYES_BROWN = ((DyeExtension)(Object)DyeColor.BROWN).getTag();
-		public static final TagKey<Item> DYES_BLUE = ((DyeExtension)(Object)DyeColor.BLUE).getTag();
-		public static final TagKey<Item> DYES_PURPLE = ((DyeExtension)(Object)DyeColor.PURPLE).getTag();
-		public static final TagKey<Item> DYES_CYAN = ((DyeExtension)(Object)DyeColor.CYAN).getTag();
-		public static final TagKey<Item> DYES_LIGHT_GRAY = ((DyeExtension)(Object)DyeColor.LIGHT_GRAY).getTag();
-		public static final TagKey<Item> DYES_GRAY = ((DyeExtension)(Object)DyeColor.GRAY).getTag();
-		public static final TagKey<Item> DYES_PINK = ((DyeExtension)(Object)DyeColor.PINK).getTag();
-		public static final TagKey<Item> DYES_LIME = ((DyeExtension)(Object)DyeColor.LIME).getTag();
-		public static final TagKey<Item> DYES_YELLOW = ((DyeExtension)(Object)DyeColor.YELLOW).getTag();
-		public static final TagKey<Item> DYES_LIGHT_BLUE = ((DyeExtension)(Object)DyeColor.LIGHT_BLUE).getTag();
-		public static final TagKey<Item> DYES_MAGENTA = ((DyeExtension)(Object)DyeColor.MAGENTA).getTag();
-		public static final TagKey<Item> DYES_ORANGE = ((DyeExtension)(Object)DyeColor.ORANGE).getTag();
-		public static final TagKey<Item> DYES_WHITE = ((DyeExtension)(Object)DyeColor.WHITE).getTag();
+		public static final TagKey<Item> DYES_BLACK = ((DyeExtension) (Object) DyeColor.BLACK).getTag();
+		public static final TagKey<Item> DYES_RED = ((DyeExtension) (Object) DyeColor.RED).getTag();
+		public static final TagKey<Item> DYES_GREEN = ((DyeExtension) (Object) DyeColor.GREEN).getTag();
+		public static final TagKey<Item> DYES_BROWN = ((DyeExtension) (Object) DyeColor.BROWN).getTag();
+		public static final TagKey<Item> DYES_BLUE = ((DyeExtension) (Object) DyeColor.BLUE).getTag();
+		public static final TagKey<Item> DYES_PURPLE = ((DyeExtension) (Object) DyeColor.PURPLE).getTag();
+		public static final TagKey<Item> DYES_CYAN = ((DyeExtension) (Object) DyeColor.CYAN).getTag();
+		public static final TagKey<Item> DYES_LIGHT_GRAY = ((DyeExtension) (Object) DyeColor.LIGHT_GRAY).getTag();
+		public static final TagKey<Item> DYES_GRAY = ((DyeExtension) (Object) DyeColor.GRAY).getTag();
+		public static final TagKey<Item> DYES_PINK = ((DyeExtension) (Object) DyeColor.PINK).getTag();
+		public static final TagKey<Item> DYES_LIME = ((DyeExtension) (Object) DyeColor.LIME).getTag();
+		public static final TagKey<Item> DYES_YELLOW = ((DyeExtension) (Object) DyeColor.YELLOW).getTag();
+		public static final TagKey<Item> DYES_LIGHT_BLUE = ((DyeExtension) (Object) DyeColor.LIGHT_BLUE).getTag();
+		public static final TagKey<Item> DYES_MAGENTA = ((DyeExtension) (Object) DyeColor.MAGENTA).getTag();
+		public static final TagKey<Item> DYES_ORANGE = ((DyeExtension) (Object) DyeColor.ORANGE).getTag();
+		public static final TagKey<Item> DYES_WHITE = ((DyeExtension) (Object) DyeColor.WHITE).getTag();
 
 		public static final TagKey<Item> EGGS = tag("eggs");
 		/**
@@ -384,7 +386,7 @@ public class Tags {
 		public static final TagKey<Item> STORAGE_BLOCKS_RAW_GOLD = tag("storage_blocks/raw_gold");
 		public static final TagKey<Item> STORAGE_BLOCKS_RAW_IRON = tag("storage_blocks/raw_iron");
 		public static final TagKey<Item> STORAGE_BLOCKS_REDSTONE = tag("storage_blocks/redstone");
-		public static final TagKey<Item> STRING                  = tag("string");
+		public static final TagKey<Item> STRING = tag("string");
 		/**
 		 * A tag containing all existing tools.
 		 */
@@ -454,14 +456,14 @@ public class Tags {
 			return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation("c", name));
 		}
 
-		private static TagKey<Item> tag(String name)
-		{
+		private static TagKey<Item> tag(String name) {
 			return tag(name, null);
 		}
 	}
 
 	public static class Fluids {
-		private static void init() {}
+		private static void init() {
+		}
 
 		/**
 		 * Holds all fluids related to milk.
@@ -478,7 +480,8 @@ public class Tags {
 	}
 
 	public static class Biomes {
-		private static void init() {}
+		private static void init() {
+		}
 
 		public static final TagKey<Biome> IS_HOT = tag("is_hot");
 		public static final TagKey<Biome> IS_HOT_OVERWORLD = tag("is_hot/overworld");
