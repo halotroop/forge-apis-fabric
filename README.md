@@ -14,7 +14,7 @@ For more information regarding the licensing of this project check the [LICENSIN
 
 Thanks to Fuzs for porting the Forge Config API. This project is forked from it.
 
-![Fuzs Presents](https://i.imgur.com/bUAnw7w.png "Fuzs Presents: Forge Config API Port")
+[![Fuzs Presents](https://i.imgur.com/bUAnw7w.png "Fuzs Presents: Forge Config API Port")](https://github.com/Fuzss/forgeconfigapiport-fabric)
 
 ## DEVELOPER INFORMATION
 
