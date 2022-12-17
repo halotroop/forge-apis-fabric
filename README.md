@@ -1,15 +1,10 @@
-# Forge Config API Port
+# Forge APIs for Fabric
 
-A Minecraft mod. Downloads can be found on CurseForge.
-
-![](https://i.imgur.com/bUAnw7w.png)
+A Minecraft mod that adds direct compatibility with Forge APIs.
 
 ## ABOUT THE PROJECT
 
-**!!! Forge Config API Port is in no way affiliated with the Forge project !!!**
-
-**The sole purpose of this library is to enable usage of the Forge config api on the Fabric mod loader. This is done in
-the hopes of removing one more obstacle for developers wishing to maintain their mods on both loaders.**
+**!!! Forge APIs for Fabric is in no way affiliated with the Minecraft Forge project or contributors !!!**
 
 This is a direct port from Forge, all package names are the same, so you don't even have to readjust imports when
 porting from Forge.
@@ -17,81 +12,18 @@ As Fabric is a whole different mod loader, there obviously have to be some diffe
 
 For more information regarding the licensing of this project check the [LICENSING.md](LICENSING.md) file.
 
+Thanks to Fuzs for porting the Forge Config API. This project is forked from it.
+
+![Fuzs Presents](https://i.imgur.com/bUAnw7w.png "Fuzs Presents: Forge Config API Port")
+
 ## DEVELOPER INFORMATION
 
 ### Adding to your workspace
 
-This project is still in development. Implementing it in your workspace is not yet recommended. Therefore, no maven
-repository exists at the moment.
+This mod is not currently ready for public use. If you'd like to use it as a stepping stone for now,
+please clone this repo and use the `publishToMavenLocal` Gradle task.
 
-#### Adding Forge Config API Port via the Curse Maven
-
-In case you're eager to test this project, it can be included via the Curse Maven (Note: project name is merely a
-descriptor, you should be able to choose it freely; project id is found in the info box of a project page, file id is
-found at the end of the file url). This is how adding a Curse Maven dependency is generally done:
-
-```groovy
-repositories {
-	maven { url = "https://cursemaven.com" }
-}
-
-dependencies {
-    	modImplementation "curse.maven:<projectName>-<projectId>:<fileId>"
-}
-```
-
-#### Manually adding Night Config dependencies via Maven
-
-Since the Curse Maven generally isn't aware of any maven dependencies, you might have to add those manually, too. They
-are only required within your workspace, in a production environment those dependencies are shipped with Forge Config
-API Port.
-
-```groovy
-repositories {
-    	mavenCentral()
-}
-
-dependencies {
-	implementation 'com.electronwill.night-config:core:3.6.3'
-	implementation 'com.electronwill.night-config:toml:3.6.3'
-}
-```
-
-#### Adding dependency overrides for Night Config mods
-
-There's also one more thing that might have to be done: Depending on how you have enabled Forge Config API Port in your
-environment, the mod might not be able to recognize the required Night Config libraries. You'll know that is the case
-when upon running the game instance, you'll be greeted by this message:
-
-```
- net.fabricmc.loader.impl.FormattedException: net.fabricmc.loader.impl.discovery.ModResolutionException: Mod resolution encountered an incompatible mod set!
-A potential solution has been determined:
-	 - Install com_electronwill_night-config_core, any version.
-	 - Install com_electronwill_night-config_toml, any version.
-```
-
-To resolve this issue, what you need to do is add dependency overrides (check
-the [Fabric Wiki](https://fabricmc.net/wiki/tutorial:dependency_overrides) for more information on this topic) for your
-configuration. Do that by creating a new file at `run/config/fabric_loader_dependencies.json`, in which you put the
-following contents:
-
-```json
-{
-  "version": 1,
-  "overrides": {
-    "forgeconfigapiport": {
-      "-depends": {
-        "com_electronwill_night-config_core": "",
-        "com_electronwill_night-config_toml": ""
-      }
-    }
-  }
-}
-```
-
-Also don't forget to manually add this file to your VCS, since the whole `run` directory is usually ignored by default.
-
-### Working with Forge Config API Port
+### Working with Forge APIs for Fabric
 
 #### Registering configs
 
