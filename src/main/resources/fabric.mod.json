@@ -28,6 +28,7 @@
       "me.alphamode.forgetags.data.DataGenerators"
     ]
   },
+  "accessWidener": "forge-apis-fabric.accesswidener",
   "mixins": [
     "forge-apis-fabric-accessors.mixins.json",
     "forge-apis-fabric.mixins.json",

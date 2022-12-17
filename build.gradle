@@ -41,6 +41,8 @@ dependencies {
 }
 
 loom {
+    accessWidenerPath = file("src/main/resources/forge-apis-fabric.accesswidener")
+
     mixin {
         defaultRefmapName = "forgeapis-fabric.refmap.json"
     }
