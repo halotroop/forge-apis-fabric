@@ -5,9 +5,6 @@
   "package": "com.halotroop.forgeapisfabric.mixin",
   "refmap": "forgeconfigapiport.refmap.json",
   "mixins": [
-    "IngredientMixin",
-    "PlaceRecipeMixin",
-    "ShapedRecipeMixin"
   ],
   "client": [
   ],

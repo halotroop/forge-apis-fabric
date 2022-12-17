@@ -5,7 +5,6 @@
   "package": "com.halotroop.forgeapisfabric.accessor",
   "refmap": "forgeconfigapiport.refmap.json",
   "mixins": [
-    "IngredientAccessor"
   ],
   "client": [
   ],
